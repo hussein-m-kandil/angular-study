@@ -3,5 +3,93 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "mdn-todo-list": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/mdn-todo-list",
+      "sourceRoot": "projects/mdn-todo-list/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/mdn-todo-list",
+            "index": "projects/mdn-todo-list/src/index.html",
+            "browser": "projects/mdn-todo-list/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/mdn-todo-list/tsconfig.app.json",
+            "assets": [
+              "projects/mdn-todo-list/src/favicon.ico",
+              "projects/mdn-todo-list/src/assets"
+            ],
+            "styles": [
+              "projects/mdn-todo-list/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "mdn-todo-list:build:production"
+            },
+            "development": {
+              "buildTarget": "mdn-todo-list:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "mdn-todo-list:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/mdn-todo-list/tsconfig.spec.json",
+            "assets": [
+              "projects/mdn-todo-list/src/favicon.ico",
+              "projects/mdn-todo-list/src/assets"
+            ],
+            "styles": [
+              "projects/mdn-todo-list/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
