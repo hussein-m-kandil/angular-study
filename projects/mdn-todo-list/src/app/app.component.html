@@ -1,10 +1,8 @@
 <div class="main">
+
   <h1>{{ title }}</h1>
 
-  <h2>What would you like to do today?</h2>
-
   <label for="newItemInput">What would you like to do today?</label>
-
   <input #newItem placeholder="add an item"
     (keyup.enter)="addItem(newItem.value); newItem.value = ''"
     class="lg-text-input" id="newItemInput">
@@ -12,8 +10,31 @@
   <button class="btn-primary" type="button"
     (click)="addItem(newItem.value); newItem.value = ''">Add</button>
 
+  <div class="btn-wrapper">
+    <button type="button" class="btn btn-menu" [class.active]="filter === 'all'"
+      (click)="filter = 'all'">
+      All
+    </button>
+    <button type="button" class="btn btn-menu"
+      [class.active]="filter === 'active'" (click)="filter = 'active'">
+      To Do
+    </button>
+    <button type="button" class="btn btn-menu"
+      [class.active]="filter === 'done'" (click)="filter = 'done'">
+      Done
+    </button>
+  </div>
+
+  <h2>
+    {{ allItems.length }}
+    <span *ngIf="allItems.length === 1; else plural">item</span>
+    <ng-template #plural> items</ng-template>
+  </h2>
+
   <ul>
-    <li *ngFor="let item of items">{{ item.description }}</li>
+    <li *ngFor="let item of items">
+      <app-item (remove)="remove($event)" [item]="item"></app-item>
+    </li>
   </ul>
 
 </div>
