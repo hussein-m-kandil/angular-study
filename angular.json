@@ -85,6 +85,89 @@
           }
         }
       }
+    },
+    "ng-homes": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ng-homes",
+      "sourceRoot": "projects/ng-homes/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": {
+              "base": "dist/ng-homes",
+              "browser": ""
+            },
+            "baseHref": "./",
+            "index": "projects/ng-homes/src/index.html",
+            "browser": "projects/ng-homes/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/ng-homes/tsconfig.app.json",
+            "assets": [
+              "projects/ng-homes/src/favicon.ico",
+              "projects/ng-homes/src/assets"
+            ],
+            "styles": ["projects/ng-homes/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "ng-homes:build:production"
+            },
+            "development": {
+              "buildTarget": "ng-homes:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "ng-homes:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/ng-homes/tsconfig.spec.json",
+            "assets": [
+              "projects/ng-homes/src/favicon.ico",
+              "projects/ng-homes/src/assets"
+            ],
+            "styles": ["projects/ng-homes/src/styles.css"],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
